@@ -12,7 +12,7 @@ elif op == "/":
 	if b == 0 :
 		print("Division by zero impossible")
 	else :
-	    print(f"Sum = {a+b}")
+	    print(f"Sum = {a/b}")
 	 
 else:
 	print("Invalid operator")		
