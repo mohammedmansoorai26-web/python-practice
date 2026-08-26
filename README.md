@@ -1,5 +1,6 @@
 # python-practice
 My python practice programs and projects 
 
-# programs
-Calculator 
+##programs
+-Calculator 
+-Student grade calculator 
