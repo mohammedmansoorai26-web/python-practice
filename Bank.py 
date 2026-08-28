@@ -1,0 +1,109 @@
+class Bank:
+
+    def __init__(self, name, balance):
+        self.name = name
+
+        if balance >= 0:
+            self.__balance = balance
+        else:
+            self.__balance = 0
+
+        self.transactions = []
+        self.__is_active = True
+
+    # Check balance
+    def get_balance(self):
+        return self.__balance
+
+    # Deposit
+    def deposit(self, amount):
+        if amount > 0 and self.__is_active:
+            self.__balance += amount
+            self.transactions.append(f"Deposit: {amount}")
+            return self.__balance
+        else:
+            return "Invalid deposit"
+
+    # Withdraw
+    def withdraw(self, amount):
+        if amount > 0 and self.__balance >= amount and self.__is_active:
+            self.__balance -= amount
+            self.transactions.append(f"Withdraw: {amount}")
+            return self.__balance
+        else:
+            return "Invalid withdrawal"
+
+    # Transfer
+    def transfer(self, other_account, amount):
+        if (amount > 0 and
+            self.__balance >= amount and
+            self.__is_active and
+            other_account.__is_active):
+
+            self.__balance -= amount
+            other_account.__balance += amount
+
+            self.transactions.append(
+                f"Transfer to {other_account.name}: {amount}"
+            )
+
+            other_account.transactions.append(
+                f"Received from {self.name}: {amount}"
+            )
+
+            return "Transfer successful"
+
+        else:
+            return "Invalid transfer"
+
+    # Transaction history
+    def history(self):
+        for transaction in self.transactions:
+            print(transaction)
+
+    # Account summary
+    def summary(self):
+        return f"Name: {self.name}, Balance: {self.__balance}"
+
+    # Check account status
+    def is_active(self):
+        return self.__is_active
+
+    # Close account
+    def close_account(self):
+        self.__is_active = False
+        return "Account closed successfully"
+
+
+# Creating accounts
+Mansoor = Bank("Mansoor", 1700)
+Rahul = Bank("Rahul", 500)
+
+
+# Deposit
+print(Mansoor.deposit(300))
+
+# Withdraw
+print(Mansoor.withdraw(200))
+
+# Transfer
+print(Mansoor.transfer(Rahul, 400))
+
+# Balances
+print(Mansoor.get_balance())
+print(Rahul.get_balance())
+
+# History
+print("\nMansoor's History:")
+Mansoor.history()
+
+print("\nRahul's History:")
+Rahul.history()
+
+# Summary
+print("\nAccount Summary:")
+print(Mansoor.summary())
+
+# Close account
+print(Mansoor.close_account())
+print(Mansoor.is_active())
